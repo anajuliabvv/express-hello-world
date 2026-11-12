@@ -51,6 +51,23 @@ app.get('/erro', (req, res) => {
     throw new Error('Erro simulado para teste!');
 });
 
+app.get('/api-pokemon', async (req, res) => {
+    try {
+        const resposta = await fetch(
+            'https://pokeapi.co/api/v2/pokemon/pikachu'
+        );
+
+        const dados = await resposta.json();
+
+        res.json(dados);
+
+    } catch (erro) {
+        res.status(500).json({
+            mensagem: 'Erro ao consultar a API externa'
+        });
+    }
+});
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 
